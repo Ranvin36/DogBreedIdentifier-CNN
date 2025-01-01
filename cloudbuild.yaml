@@ -1,6 +1,6 @@
 steps:
   - name: 'gcr.io/cloud-builders/docker',
-    args: ['build','-t','gcr.io/dog-breed-classifier-446217/cnn:$COMMIT_SHA','.'],
+    args: ['build','-t','gcr.io/dog-breed-classifier-446217/cnn:$COMMIT_SHA','./Api'],
   - name: 'gcr.io/cloud-builders/docker',
     args: ['push', 'gcr.io/dog-breed-classifier-446217/cnn:$COMMIT_SHA'],
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk',
