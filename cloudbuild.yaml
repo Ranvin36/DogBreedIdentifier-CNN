@@ -1,0 +1,20 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker',
+    args: ['build','-t','gcr.io/dog-breed-classifier-446217/cnn:$COMMIT_SHA','.'],
+  - name: 'gcr.io/cloud-builders/docker',
+    args: ['push', 'gcr.io/dog-breed-classifier-446217/cnn:$COMMIT_SHA'],
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk',
+    entrypoint : 'gcloud',
+    args:
+      - 'run' 
+      - 'deploy' 
+      - 'cnn' 
+      - '--image' 
+      - 'gcr.io/dog-breed-classifier-446217/cnn:$COMMIT_SHA' 
+      - '--platform'
+      - 'managed'
+      - '--region'
+      - 'us-central1'
+      - '--allow-unauthenticated'
+images:
+  - 'gcr.io/dog-breed-classifier-446217/cnn:$COMMIT_SHA'
