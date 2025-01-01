@@ -1,3 +1,5 @@
+options:
+  defaultLogsBucketBehavior: 'REGIONAL_USER_OWNED_BUCKET'
 steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build','-t','gcr.io/dog-breed-classifier-446217/cnn:$COMMIT_SHA','./Api']
