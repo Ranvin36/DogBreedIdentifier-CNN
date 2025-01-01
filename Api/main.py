@@ -8,8 +8,8 @@ import io
 
 app = FastAPI()
 
-model = tf.keras.models.load_model("../SavedModel/dog_cnn.h5")
-dog_labels = pd.read_csv("../Datasets/labels.csv")
+model = tf.keras.models.load_model("./SavedModel/dog_cnn.h5")
+dog_labels = pd.read_csv("./labels.csv")
 
 class Item(BaseModel):
     name:str
@@ -25,6 +25,7 @@ async def predict(name:str= Form(...),image:UploadFile = Form(...)):
         return image_dimenshioned
     proprocessed_image = preprocessing_image(file)
     prediction = model.predict(proprocessed_image)
-    prediction = np.argmax(prediction)
-    prediction = np.unique(dog_labels.breed)[prediction]
-    return {"Predicted Breed: ":prediction}
+    prediction_max = np.argmax(prediction)
+    probability = float(prediction[0][prediction_max])
+    prediction = np.unique(dog_labels.breed)[prediction_max]
+    return {"Predicted Breed":prediction,"probability":probability}
