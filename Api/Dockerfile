@@ -7,6 +7,7 @@ COPY ./labels.csv ./labels.csv
 
 COPY ./main.py ./main.py
 
+COPY ./requirements.txt ./requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
 
